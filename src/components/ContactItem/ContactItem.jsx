@@ -1,6 +1,6 @@
 import { Item, Name, Number, Button } from './ContactItem.styled';
 import { PropTypes } from 'prop-types';
-import { deleteContact } from '../../redux/contactsSlice';
+import { deleteContact } from '../../redux/operation';
 import { useDispatch } from 'react-redux';
 
 export const ContactItem = ({ info }) => {
@@ -8,11 +8,12 @@ export const ContactItem = ({ info }) => {
   return (
     <Item>
       <Name>{info.name}</Name>
-      <Number>{info.number} </Number>
+      <Number>{info.phone} </Number>
 
       <Button
         type="button"
         onClick={() => {
+          console.log('info', info.id);
           dispatch(deleteContact(info.id));
         }}
       >
@@ -24,8 +25,9 @@ export const ContactItem = ({ info }) => {
 
 ContactItem.propTypes = {
   info: PropTypes.exact({
+    createdAt: PropTypes.string,
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    number: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
   }).isRequired,
 };

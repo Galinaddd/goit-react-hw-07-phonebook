@@ -2,10 +2,9 @@ import { Formik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 import { getContacts } from 'redux/selectors';
 import { Label, AddContactForm, Input } from './ContactForm.styled';
-import { addContacts } from '../../redux/contactsSlice';
-import { nanoid } from 'nanoid';
-
-// import { PropTypes } from 'prop-types';
+import { addContact } from 'redux/operation';
+// import { addContacts } from '../../redux/./operation';
+// import { nanoid } from 'nanoid';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
@@ -16,9 +15,9 @@ export const ContactForm = () => {
     const { name, number } = values;
 
     const newContact = {
-      id: nanoid(5),
+      // id: nanoid(5),
       name,
-      number,
+      phone: number,
     };
     const NameNornalized = name.toLowerCase();
     const IsInContacts = contacts.some(
@@ -27,7 +26,7 @@ export const ContactForm = () => {
     if (IsInContacts) {
       alert(`${name} is olready in contacts`);
     } else {
-      dispatch(addContacts(newContact));
+      dispatch(addContact(newContact));
     }
 
     // onSubmit(values);

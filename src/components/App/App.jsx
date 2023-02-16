@@ -1,41 +1,29 @@
 import { Container } from './App.styled';
-import { Filter } from '../Filter/Filter';
+
 import { ContactForm } from 'components/ContactForm/ContactForm';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchContacts } from '../../redux/operation';
+import { useEffect } from 'react';
 import { ContactList } from 'components/ContactList/ContactList';
-import { getContacts, getFilter } from 'redux/selectors';
-import { useSelector } from 'react-redux';
+import { getIsLoading, getError } from 'redux/selectors';
 
 export const App = () => {
-  const filter = useSelector(getFilter);
-  const contacts = useSelector(getContacts);
-  const filterContacts = () => {
-    const normalisedFilter = filter.toLowerCase();
+  const dispatch = useDispatch();
+  const isLoading = useSelector(getIsLoading);
+  const error = useSelector(getError);
 
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalisedFilter)
-    );
-  };
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <Container>
       <h1>Phonebook</h1>
       <ContactForm />
       <h2>Contacts</h2>
-      {filterContacts().length || filter ? (
-        filterContacts().length ? (
-          <>
-            <Filter />
-            <ContactList contacts={filterContacts()} />
-          </>
-        ) : (
-          <>
-            <Filter />
-            <p>Contact not found</p>
-          </>
-        )
-      ) : (
-        <p>There are no phone numbers in Contacts!</p>
-      )}
+      <ContactList />
+      {isLoading && !error && <b>Request in progress...</b>}
     </Container>
   );
 };
