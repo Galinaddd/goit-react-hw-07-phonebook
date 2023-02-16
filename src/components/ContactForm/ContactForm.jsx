@@ -3,8 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
 import { Label, AddContactForm, Input } from './ContactForm.styled';
 import { addContact } from 'redux/operation';
-// import { addContacts } from '../../redux/./operation';
-// import { nanoid } from 'nanoid';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
@@ -15,7 +13,6 @@ export const ContactForm = () => {
     const { name, number } = values;
 
     const newContact = {
-      // id: nanoid(5),
       name,
       phone: number,
     };
@@ -29,7 +26,6 @@ export const ContactForm = () => {
       dispatch(addContact(newContact));
     }
 
-    // onSubmit(values);
     resetForm();
   };
 
@@ -67,7 +63,3 @@ export const ContactForm = () => {
     </Formik>
   );
 };
-
-// ContactForm.propTypes = {
-//   onSubmit: PropTypes.func.isRequired,
-// };
