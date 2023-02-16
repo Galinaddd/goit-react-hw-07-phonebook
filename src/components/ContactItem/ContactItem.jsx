@@ -13,7 +13,6 @@ export const ContactItem = ({ info }) => {
       <Button
         type="button"
         onClick={() => {
-          console.log('info', info.id);
           dispatch(deleteContact(info.id));
         }}
       >

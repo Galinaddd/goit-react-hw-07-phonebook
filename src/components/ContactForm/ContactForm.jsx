@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
-import { getContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/selectors';
 import { Label, AddContactForm, Input } from './ContactForm.styled';
 import { addContact } from 'redux/operation';
 // import { addContacts } from '../../redux/./operation';
@@ -9,7 +9,7 @@ import { addContact } from 'redux/operation';
 export const ContactForm = () => {
   const dispatch = useDispatch();
 
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
 
   const handleSubmit = (values, { resetForm }) => {
     const { name, number } = values;
